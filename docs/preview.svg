@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" font-family="ui-monospace, Menlo, monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0e17"/>
+      <stop offset="1" stop-color="#0e1320"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+
+  <!-- top bar -->
+  <rect width="1200" height="56" fill="#11161f"/>
+  <text x="24" y="35" fill="#16c784" font-size="22">&#9672;</text>
+  <text x="48" y="35" fill="#e8edf6" font-size="20" font-weight="700">QuantDesk</text>
+  <text x="168" y="35" fill="#5d6b85" font-size="14">Trading Dashboard</text>
+  <circle cx="1024" cy="28" r="5" fill="#16c784"/>
+  <text x="1038" y="33" fill="#16c784" font-size="13">LIVE FEED</text>
+  <rect x="1120" y="14" width="60" height="28" rx="6" fill="#1b2336"/>
+  <text x="1132" y="33" fill="#aeb9cc" font-size="13">Pause</text>
+
+  <!-- ticker -->
+  <rect y="56" width="1200" height="34" fill="#0d1119"/>
+  <g font-size="13">
+    <text x="24"  y="78" fill="#aeb9cc">BTC</text><text x="64"  y="78" fill="#e8edf6">$67,812.40</text><text x="168" y="78" fill="#16c784">&#9650; +0.54%</text>
+    <text x="290" y="78" fill="#aeb9cc">ETH</text><text x="330" y="78" fill="#e8edf6">$3,540.12</text><text x="430" y="78" fill="#ea3943">&#9660; -0.21%</text>
+    <text x="550" y="78" fill="#aeb9cc">NVDA</text><text x="600" y="78" fill="#e8edf6">$125.88</text><text x="690" y="78" fill="#16c784">&#9650; +1.03%</text>
+    <text x="810" y="78" fill="#aeb9cc">AAPL</text><text x="860" y="78" fill="#e8edf6">$211.90</text><text x="950" y="78" fill="#ea3943">&#9660; -0.24%</text>
+  </g>
+
+  <!-- left: watchlist -->
+  <rect x="16" y="106" width="250" height="598" rx="10" fill="#11161f"/>
+  <text x="32" y="134" fill="#5d6b85" font-size="12" letter-spacing="1">WATCHLIST</text>
+  <rect x="24" y="146" width="234" height="56" rx="8" fill="#161d2c"/>
+  <text x="36" y="170" fill="#e8edf6" font-size="15" font-weight="700">BTC</text>
+  <text x="36" y="190" fill="#5d6b85" font-size="11">Bitcoin</text>
+  <polyline points="120,188 134,180 148,184 162,172 176,176 190,166 204,170" fill="none" stroke="#16c784" stroke-width="1.5"/>
+  <text x="252" y="170" fill="#e8edf6" font-size="13" text-anchor="end">$67,812</text>
+  <text x="252" y="190" fill="#16c784" font-size="12" text-anchor="end">+0.54%</text>
+  <g font-size="13">
+    <text x="36" y="232" fill="#e8edf6">ETH</text>  <text x="252" y="232" fill="#ea3943" text-anchor="end">-0.21%</text>
+    <text x="36" y="268" fill="#e8edf6">AAPL</text> <text x="252" y="268" fill="#ea3943" text-anchor="end">-0.24%</text>
+    <text x="36" y="304" fill="#e8edf6">NVDA</text> <text x="252" y="304" fill="#16c784" text-anchor="end">+1.03%</text>
+    <text x="36" y="340" fill="#e8edf6">TSLA</text> <text x="252" y="340" fill="#16c784" text-anchor="end">+0.42%</text>
+    <text x="36" y="376" fill="#e8edf6">SPY</text>  <text x="252" y="376" fill="#16c784" text-anchor="end">+0.11%</text>
+  </g>
+
+  <!-- center: chart -->
+  <rect x="278" y="106" width="612" height="392" rx="10" fill="#11161f"/>
+  <text x="296" y="138" fill="#e8edf6" font-size="18" font-weight="700">BTC</text>
+  <text x="336" y="138" fill="#5d6b85" font-size="13">Bitcoin</text>
+  <text x="874" y="134" fill="#e8edf6" font-size="20" text-anchor="end" font-weight="700">$67,812.40</text>
+  <text x="874" y="156" fill="#16c784" font-size="13" text-anchor="end">+0.54%</text>
+  <g>
+    <line x1="320" y1="300" x2="320" y2="430" stroke="#16c784" stroke-width="1"/><rect x="316" y="330" width="9" height="70" fill="#16c784"/>
+    <line x1="356" y1="280" x2="356" y2="410" stroke="#ea3943" stroke-width="1"/><rect x="352" y="300" width="9" height="60" fill="#ea3943"/>
+    <line x1="392" y1="250" x2="392" y2="380" stroke="#16c784" stroke-width="1"/><rect x="388" y="280" width="9" height="70" fill="#16c784"/>
+    <line x1="428" y1="240" x2="428" y2="360" stroke="#16c784" stroke-width="1"/><rect x="424" y="260" width="9" height="60" fill="#16c784"/>
+    <line x1="464" y1="260" x2="464" y2="380" stroke="#ea3943" stroke-width="1"/><rect x="460" y="280" width="9" height="70" fill="#ea3943"/>
+    <line x1="500" y1="220" x2="500" y2="340" stroke="#16c784" stroke-width="1"/><rect x="496" y="250" width="9" height="60" fill="#16c784"/>
+    <line x1="536" y1="200" x2="536" y2="320" stroke="#16c784" stroke-width="1"/><rect x="532" y="230" width="9" height="55" fill="#16c784"/>
+    <line x1="572" y1="210" x2="572" y2="330" stroke="#ea3943" stroke-width="1"/><rect x="568" y="240" width="9" height="55" fill="#ea3943"/>
+    <line x1="608" y1="180" x2="608" y2="300" stroke="#16c784" stroke-width="1"/><rect x="604" y="210" width="9" height="60" fill="#16c784"/>
+    <line x1="644" y1="190" x2="644" y2="300" stroke="#16c784" stroke-width="1"/><rect x="640" y="215" width="9" height="55" fill="#16c784"/>
+    <line x1="680" y1="170" x2="680" y2="290" stroke="#ea3943" stroke-width="1"/><rect x="676" y="195" width="9" height="55" fill="#ea3943"/>
+    <line x1="716" y1="160" x2="716" y2="280" stroke="#16c784" stroke-width="1"/><rect x="712" y="185" width="9" height="55" fill="#16c784"/>
+    <line x1="752" y1="150" x2="752" y2="270" stroke="#16c784" stroke-width="1"/><rect x="748" y="175" width="9" height="55" fill="#16c784"/>
+    <line x1="788" y1="170" x2="788" y2="280" stroke="#ea3943" stroke-width="1"/><rect x="784" y="190" width="9" height="50" fill="#ea3943"/>
+    <line x1="824" y1="155" x2="824" y2="260" stroke="#16c784" stroke-width="1"/><rect x="820" y="178" width="9" height="50" fill="#16c784"/>
+  </g>
+  <g font-size="12" fill="#5d6b85"><text x="296" y="476">O <tspan fill="#e8edf6">$67,448</tspan></text><text x="430" y="476">H <tspan fill="#16c784">$68,012</tspan></text><text x="560" y="476">L <tspan fill="#ea3943">$67,001</tspan></text><text x="690" y="476">Vol <tspan fill="#e8edf6">12.4K</tspan></text></g>
+
+  <!-- center bottom: P&amp;L -->
+  <rect x="278" y="508" width="612" height="196" rx="10" fill="#11161f"/>
+  <text x="296" y="536" fill="#5d6b85" font-size="12" letter-spacing="1">PORTFOLIO P&amp;L</text>
+  <text x="296" y="566" fill="#5d6b85" font-size="11">EQUITY</text>
+  <text x="296" y="592" fill="#e8edf6" font-size="22" font-weight="700">$148,920</text>
+  <text x="560" y="566" fill="#5d6b85" font-size="11">UNREALIZED P&amp;L</text>
+  <text x="560" y="592" fill="#16c784" font-size="22" font-weight="700">+$9,184.50</text>
+  <text x="700" y="592" fill="#16c784" font-size="14">+6.57%</text>
+  <g font-size="13">
+    <text x="296" y="640" fill="#e8edf6">BTC</text><text x="380" y="640" fill="#aeb9cc">0.85</text><text x="560" y="640" fill="#16c784">+$5,620.20</text>
+    <text x="296" y="666" fill="#e8edf6">NVDA</text><text x="380" y="666" fill="#aeb9cc">140</text><text x="560" y="666" fill="#16c784">+$2,287.20</text>
+    <text x="296" y="692" fill="#e8edf6">ETH</text><text x="380" y="692" fill="#aeb9cc">12</text><text x="560" y="692" fill="#16c784">+$2,761.44</text>
+  </g>
+
+  <!-- right: order book -->
+  <rect x="902" y="106" width="282" height="598" rx="10" fill="#11161f"/>
+  <text x="918" y="134" fill="#5d6b85" font-size="12" letter-spacing="1">ORDER BOOK &#183; BTC</text>
+  <g font-size="11" fill="#5d6b85"><text x="918" y="160">Price (USD)</text><text x="1070" y="160" text-anchor="end">Size</text><text x="1168" y="160" text-anchor="end">Total</text></g>
+  <g font-size="12">
+    <rect x="918" y="170" width="200" height="18" fill="#ea394322"/><text x="918" y="183" fill="#ea3943">67,826.10</text><text x="1070" y="183" fill="#aeb9cc" text-anchor="end">312</text><text x="1168" y="183" fill="#5d6b85" text-anchor="end">312</text>
+    <rect x="918" y="190" width="150" height="18" fill="#ea394322"/><text x="918" y="203" fill="#ea3943">67,822.40</text><text x="1070" y="203" fill="#aeb9cc" text-anchor="end">488</text><text x="1168" y="203" fill="#5d6b85" text-anchor="end">800</text>
+    <rect x="918" y="210" width="110" height="18" fill="#ea394322"/><text x="918" y="223" fill="#ea3943">67,818.70</text><text x="1070" y="223" fill="#aeb9cc" text-anchor="end">655</text><text x="1168" y="223" fill="#5d6b85" text-anchor="end">1,455</text>
+    <rect x="918" y="230" width="80" height="18" fill="#ea394322"/><text x="918" y="243" fill="#ea3943">67,815.00</text><text x="1070" y="243" fill="#aeb9cc" text-anchor="end">540</text><text x="1168" y="243" fill="#5d6b85" text-anchor="end">1,995</text>
+  </g>
+  <text x="918" y="278" fill="#e8edf6" font-size="15" font-weight="700">67,812.40</text>
+  <text x="1168" y="278" fill="#5d6b85" font-size="11" text-anchor="end">spread 3.70</text>
+  <g font-size="12">
+    <rect x="918" y="294" width="90" height="18" fill="#16c78422"/><text x="918" y="307" fill="#16c784">67,809.10</text><text x="1070" y="307" fill="#aeb9cc" text-anchor="end">602</text><text x="1168" y="307" fill="#5d6b85" text-anchor="end">602</text>
+    <rect x="918" y="314" width="130" height="18" fill="#16c78422"/><text x="918" y="327" fill="#16c784">67,805.40</text><text x="1070" y="327" fill="#aeb9cc" text-anchor="end">711</text><text x="1168" y="327" fill="#5d6b85" text-anchor="end">1,313</text>
+    <rect x="918" y="334" width="170" height="18" fill="#16c78422"/><text x="918" y="347" fill="#16c784">67,801.70</text><text x="1070" y="347" fill="#aeb9cc" text-anchor="end">498</text><text x="1168" y="347" fill="#5d6b85" text-anchor="end">1,811</text>
+    <rect x="918" y="354" width="210" height="18" fill="#16c78422"/><text x="918" y="367" fill="#16c784">67,798.00</text><text x="1070" y="367" fill="#aeb9cc" text-anchor="end">844</text><text x="1168" y="367" fill="#5d6b85" text-anchor="end">2,655</text>
+  </g>
+
+  <text x="24" y="716" fill="#3a4561" font-size="11">Simulated market data via geometric Brownian motion &#8212; not real prices.</text>
+</svg>
