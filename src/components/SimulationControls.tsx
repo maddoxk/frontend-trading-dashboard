@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { SimulationScenario, ActiveScenario } from '../lib/marketFeed'
+import { Tooltip } from './Tooltip'
 
 interface SimulationControlsProps {
   running: boolean
@@ -160,7 +161,14 @@ export function SimulationControls({
           <form onSubmit={handleApplyParams} className="sim-drawer-body">
             <div className="sim-drawer-field">
               <label>
-                Annualized Drift (μ): <b>{driftInput.toFixed(2)}</b>
+                <span>
+                  Annualized Drift (μ)
+                  <Tooltip
+                    title="Geometric Brownian Drift (μ)"
+                    content="Expected annualized percentage return trend. Positive = upward drift, negative = downward drift."
+                  />
+                </span>
+                <b>{driftInput.toFixed(2)}</b>
               </label>
               <input
                 type="range"
@@ -174,7 +182,14 @@ export function SimulationControls({
 
             <div className="sim-drawer-field">
               <label>
-                Volatility (σ): <b>{volInput.toFixed(2)}</b>
+                <span>
+                  Volatility (σ)
+                  <Tooltip
+                    title="Annualized Volatility (σ)"
+                    content="Standard deviation of price changes. Higher values generate larger continuous random walks."
+                  />
+                </span>
+                <b>{volInput.toFixed(2)}</b>
               </label>
               <input
                 type="range"

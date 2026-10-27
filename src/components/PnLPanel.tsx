@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { computePnl } from '../lib/pnl'
 import { formatSignedCurrency, formatCurrency0, formatPercent, formatPrice } from '../lib/format'
+import { Tooltip } from './Tooltip'
 import type { Quote, Position } from '../lib/types'
 import type { TradingAccountState } from '../lib/tradingEngine'
 
@@ -45,7 +46,13 @@ export function PnLPanel({
     <div className="pnl">
       <div className="pnl-summary">
         <div className="pnl-block">
-          <span className="pnl-label">Total Equity</span>
+          <span className="pnl-label">
+            Total Equity
+            <Tooltip
+              title="Total Portfolio Equity"
+              content="Virtual cash plus the mark-to-market value of all open positions."
+            />
+          </span>
           <span className="mono pnl-equity">{formatCurrency0(totalEquity)}</span>
         </div>
         <div className="pnl-block">
@@ -53,7 +60,13 @@ export function PnLPanel({
           <span className="mono">{formatCurrency0(cash)}</span>
         </div>
         <div className="pnl-block">
-          <span className="pnl-label">Unrealized P&L</span>
+          <span className="pnl-label">
+            Unrealized P&L
+            <Tooltip
+              title="Unrealized P&L"
+              content="Mark-to-market paper gain or loss across all open holdings based on current prices."
+            />
+          </span>
           <span className={`mono pnl-total ${isUnrealizedUp ? 'up' : 'down'}`}>
             {formatSignedCurrency(pnl.totalUnrealized)}
           </span>
@@ -62,7 +75,13 @@ export function PnLPanel({
           </span>
         </div>
         <div className="pnl-block">
-          <span className="pnl-label">Realized P&L</span>
+          <span className="pnl-label">
+            Realized P&L
+            <Tooltip
+              title="Realized P&L"
+              content="Cumulative profit or loss locked in from sold or closed positions."
+            />
+          </span>
           <span className={`mono ${isRealizedUp ? 'up' : 'down'}`}>
             {formatSignedCurrency(realizedPnl)}
           </span>

@@ -10,6 +10,7 @@ import {
   PlaceOrderParams,
 } from '../lib/tradingEngine'
 import { formatCurrency0, formatPrice } from '../lib/format'
+import { Tooltip } from './Tooltip'
 
 interface OrderEntryProps {
   symbol: string
@@ -144,6 +145,10 @@ export function OrderEntry({
           onClick={() => setOrderType('MARKET')}
         >
           Market
+          <Tooltip
+            title="Market Order"
+            content="Executes immediately at the best available quote price in the order book."
+          />
         </button>
         <button
           type="button"
@@ -154,6 +159,10 @@ export function OrderEntry({
           }}
         >
           Limit
+          <Tooltip
+            title="Limit Order"
+            content="Queues order in the order book. Only executes when price reaches or crosses your target."
+          />
         </button>
       </div>
 
