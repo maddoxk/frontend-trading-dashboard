@@ -31,6 +31,7 @@ export default function App() {
     resetFeed,
   } = useMarketFeed()
   const [selected, setSelected] = useState('BTC')
+  const [selectedOBPrice, setSelectedOBPrice] = useState<{ side: 'BUY' | 'SELL'; price: number; size: number } | null>(null)
   const { state: tradingState, executeOrder, cancel, close, reset } = usePaperTrading(quotes)
 
   // maintain a rolling price history per symbol for sparklines
@@ -150,13 +151,17 @@ export default function App() {
               symbol={selected}
               quote={active}
               tradingState={tradingState}
+              selectedOrderBookPrice={selectedOBPrice}
               onPlaceOrder={executeOrder}
             />
           </div>
 
           <div className="panel orderbook-panel">
             <div className="panel-title">Order Book · {selected}</div>
-            <OrderBook quote={active} />
+            <OrderBook
+              quote={active}
+              onSelectPrice={(side, price, size) => setSelectedOBPrice({ side, price, size })}
+            />
           </div>
         </aside>
       </main>

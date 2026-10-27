@@ -44,6 +44,11 @@ export function buildOrderBook(
   }
 }
 
+export function calculateSpreadBps(spread: number, midPrice: number): number {
+  if (!Number.isFinite(spread) || !Number.isFinite(midPrice) || midPrice <= 0) return 0
+  return Number(((spread / midPrice) * 10_000).toFixed(2))
+}
+
 function round2(n: number): number {
   return Math.round(n * 100) / 100
 }
