@@ -7,6 +7,7 @@ import { OrderBook } from './components/OrderBook'
 import { OrderEntry } from './components/OrderEntry'
 import { PriceChart } from './components/PriceChart'
 import { PnLPanel } from './components/PnLPanel'
+import { SimulationControls } from './components/SimulationControls'
 import { SYMBOLS } from './lib/marketFeed'
 import { formatPrice, formatPercent, pctChange, abbreviateNumber } from './lib/format'
 import './App.css'
@@ -14,7 +15,21 @@ import './App.css'
 const SPARK_LEN = 40
 
 export default function App() {
-  const { quotes, candles, running, toggle } = useMarketFeed()
+  const {
+    quotes,
+    candles,
+    running,
+    speed,
+    activeScenario,
+    toggle,
+    setSpeed,
+    stepTick,
+    injectScenario,
+    clearScenario,
+    updateSymbolParams,
+    getSymbolParams,
+    resetFeed,
+  } = useMarketFeed()
   const [selected, setSelected] = useState('BTC')
   const { state: tradingState, executeOrder, cancel, close, reset } = usePaperTrading(quotes)
 
@@ -57,9 +72,20 @@ export default function App() {
             <span className="dot" />
             {running ? "LIVE FEED" : "PAUSED"}
           </span>
-          <button className="ctrl-btn" onClick={toggle}>
-            {running ? "Pause" : "Resume"}
-          </button>
+          <SimulationControls
+            running={running}
+            speed={speed}
+            activeScenario={activeScenario}
+            selectedSymbol={selected}
+            onToggle={toggle}
+            onSetSpeed={setSpeed}
+            onStepTick={stepTick}
+            onInjectScenario={injectScenario}
+            onClearScenario={clearScenario}
+            onUpdateParams={updateSymbolParams}
+            onGetParams={getSymbolParams}
+            onResetFeed={resetFeed}
+          />
         </div>
       </header>
 

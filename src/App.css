@@ -39,6 +39,171 @@
   align-items: center;
   gap: 14px;
 }
+.sim-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+.sim-scenario-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(234, 57, 67, 0.15);
+  border: 1px solid var(--down);
+  color: #ff7675;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  animation: pulse 1.5s infinite;
+}
+.sim-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--down);
+}
+.sim-badge-close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 11px;
+  margin-left: 2px;
+}
+.sim-speed-group {
+  display: flex;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sim-speed-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sim-speed-btn:hover {
+  color: var(--text);
+  background: var(--border-soft);
+}
+.sim-speed-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+.sim-step-btn {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sim-step-btn:hover {
+  background: var(--border);
+}
+.sim-scenario-select {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+.sim-scenario-select:focus {
+  border-color: var(--accent);
+}
+.sim-drawer {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  width: 280px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 14px;
+  z-index: 100;
+}
+.sim-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 6px;
+}
+.sim-drawer-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+.sim-drawer-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 14px;
+}
+.sim-drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sim-drawer-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sim-drawer-field label {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+}
+.sim-drawer-field input[type='range'] {
+  width: 100%;
+  cursor: pointer;
+}
+.sim-drawer-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.sim-apply-btn {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sim-reset-feed-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.sim-reset-feed-btn:hover {
+  color: var(--down);
+  border-color: var(--down);
+}
 .feed-status {
   display: inline-flex;
   align-items: center;
