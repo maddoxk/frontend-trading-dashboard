@@ -15,6 +15,7 @@ interface OrderEntryProps {
   symbol: string
   quote: Quote | undefined
   tradingState: TradingAccountState
+  selectedOrderBookPrice?: { side: OrderSide; price: number; size: number } | null
   onPlaceOrder: (params: Omit<PlaceOrderParams, 'currentQuote'>) => OrderResult
 }
 
@@ -22,6 +23,7 @@ export function OrderEntry({
   symbol,
   quote,
   tradingState,
+  selectedOrderBookPrice,
   onPlaceOrder,
 }: OrderEntryProps) {
   const [side, setSide] = useState<OrderSide>('BUY')
@@ -30,12 +32,27 @@ export function OrderEntry({
   const [limitPrice, setLimitPrice] = useState<string>('')
   const [feedback, setFeedback] = useState<{ message: string; isError: boolean } | null>(null)
 
+  // Listen to order book clicks
+  useEffect(() => {
+    if (selectedOrderBookPrice) {
+      setSide(selectedOrderBookPrice.side)
+      setOrderType('LIMIT')
+      setLimitPrice(selectedOrderBookPrice.price.toFixed(2))
+      setFeedback({
+        message: `Selected ${selectedOrderBookPrice.side} level @ ${selectedOrderBookPrice.price.toFixed(2)}`,
+        isError: false,
+      })
+      const timer = setTimeout(() => setFeedback(null), 2500)
+      return () => clearTimeout(timer)
+    }
+  }, [selectedOrderBookPrice])
+
   // Update default limit price when symbol changes
   useEffect(() => {
-    if (quote?.price) {
+    if (quote?.price && !selectedOrderBookPrice) {
       setLimitPrice(quote.price.toFixed(2))
     }
-  }, [symbol, quote?.price])
+  }, [symbol, quote?.price, selectedOrderBookPrice])
 
   const availableCash = getAvailableCash(tradingState)
   const availableQty = getAvailableQty(tradingState, symbol)
