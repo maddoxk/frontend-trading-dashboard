@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMarketFeed } from './hooks/useMarketFeed'
+import { usePaperTrading } from './hooks/usePaperTrading'
 import { Watchlist } from './components/Watchlist'
 import { Ticker } from './components/Ticker'
 import { OrderBook } from './components/OrderBook'
+import { OrderEntry } from './components/OrderEntry'
 import { PriceChart } from './components/PriceChart'
 import { PnLPanel } from './components/PnLPanel'
 import { SYMBOLS } from './lib/marketFeed'
@@ -14,6 +16,7 @@ const SPARK_LEN = 40
 export default function App() {
   const { quotes, candles, running, toggle } = useMarketFeed()
   const [selected, setSelected] = useState('BTC')
+  const { state: tradingState, executeOrder, cancel, close, reset } = usePaperTrading(quotes)
 
   // maintain a rolling price history per symbol for sparklines
   const [history, setHistory] = useState<Record<string, number[]>>({})
@@ -103,14 +106,32 @@ export default function App() {
           </div>
 
           <div className="panel pnl-panel">
-            <div className="panel-title">Portfolio P&L</div>
-            <PnLPanel quotes={quotes} />
+            <div className="panel-title">Portfolio & P&L</div>
+            <PnLPanel
+              quotes={quotes}
+              tradingState={tradingState}
+              onClosePosition={close}
+              onCancelOrder={cancel}
+              onResetAccount={reset}
+            />
           </div>
         </section>
 
-        <aside className="col-right panel">
-          <div className="panel-title">Order Book · {selected}</div>
-          <OrderBook quote={active} />
+        <aside className="col-right">
+          <div className="panel order-entry-panel">
+            <div className="panel-title">Trade · {selected}</div>
+            <OrderEntry
+              symbol={selected}
+              quote={active}
+              tradingState={tradingState}
+              onPlaceOrder={executeOrder}
+            />
+          </div>
+
+          <div className="panel orderbook-panel">
+            <div className="panel-title">Order Book · {selected}</div>
+            <OrderBook quote={active} />
+          </div>
         </aside>
       </main>
 
