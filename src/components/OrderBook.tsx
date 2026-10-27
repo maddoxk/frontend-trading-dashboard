@@ -22,7 +22,7 @@ export function OrderBook({ quote }: OrderBookProps) {
   const book = useMemo(() => {
     if (!quote) return null
     return buildOrderBook(quote.symbol, quote.price, seedRef.current, 24)
-  }, [quote?.symbol, quote?.price])
+  }, [quote])
 
   if (!book || !quote) {
     return <div className="ob-empty">No data</div>
