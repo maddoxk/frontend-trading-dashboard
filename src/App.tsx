@@ -10,6 +10,9 @@ import { PnLPanel } from './components/PnLPanel'
 import { SimulationControls } from './components/SimulationControls'
 import { AlertsManager } from './components/AlertsManager'
 import { ToastContainer } from './components/ToastContainer'
+import { KPICards } from './components/KPICards'
+import { OnboardingBanner } from './components/OnboardingBanner'
+import { CommandPalette } from './components/CommandPalette'
 import { SYMBOLS } from './lib/marketFeed'
 import {
   PriceAlert,
@@ -27,9 +30,11 @@ const SPARK_LEN = 40
 const PREFS_KEY = 'quantdesk_workspace_prefs_v1'
 
 type LayoutMode = 'single' | 'dual-h' | 'dual-v'
+type ExperienceMode = 'beginner' | 'pro'
 
 interface WorkspacePreferences {
   layoutMode: LayoutMode
+  experienceMode: ExperienceMode
   showLeft: boolean
   showRight: boolean
   showTicker: boolean
@@ -40,6 +45,7 @@ interface WorkspacePreferences {
 function loadPreferences(): WorkspacePreferences {
   const defaults: WorkspacePreferences = {
     layoutMode: 'single',
+    experienceMode: 'beginner',
     showLeft: true,
     showRight: true,
     showTicker: true,
@@ -89,6 +95,7 @@ export default function App() {
   const [selectedOBPrice, setSelectedOBPrice] = useState<{ side: 'BUY' | 'SELL'; price: number; size: number } | null>(null)
   const [alerts, setAlerts] = useState<PriceAlert[]>(() => loadAlerts())
   const [toasts, setToasts] = useState<ToastNotification[]>([])
+  const [isCmdOpen, setIsCmdOpen] = useState(false)
 
   const { state: tradingState, executeOrder, cancel, close, reset } = usePaperTrading(quotes)
 
@@ -101,6 +108,18 @@ export default function App() {
   useEffect(() => {
     saveAlerts(alerts)
   }, [alerts])
+
+  // Global keyboard shortcut for Command Palette (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setIsCmdOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const addToast = useCallback((title: string, message: string, type: 'info' | 'success' | 'alert' = 'info') => {
     const id = 'tst-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 6)
@@ -206,11 +225,45 @@ export default function App() {
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark">◈</span>
-          <span className="brand-name">QuantDesk</span>
-          <span className="brand-sub">Trading Terminal</span>
+          <div className="brand-titles">
+            <span className="brand-name">QuantDesk</span>
+            <span className="brand-sub">Trading Terminal</span>
+          </div>
         </div>
 
+        {/* Global Quick Find / Command Palette Trigger */}
+        <button
+          type="button"
+          className="cmd-trigger-btn"
+          onClick={() => setIsCmdOpen(true)}
+          title="Search symbols and commands (⌘K / Ctrl+K)"
+        >
+          <span className="cmd-trigger-icon">🔍</span>
+          <span className="cmd-trigger-text">Quick Find / Commands</span>
+          <span className="cmd-trigger-shortcut">⌘K</span>
+        </button>
+
         <div className="topbar-right">
+          {/* Beginner vs Pro Mode Switcher */}
+          <div className="experience-switch">
+            <button
+              type="button"
+              className={`exp-btn ${prefs.experienceMode === 'beginner' ? 'active' : ''}`}
+              onClick={() => setPrefs((p) => ({ ...p, experienceMode: 'beginner' }))}
+              title="Beginner view with streamlined essentials"
+            >
+              🌱 Beginner
+            </button>
+            <button
+              type="button"
+              className={`exp-btn ${prefs.experienceMode === 'pro' ? 'active' : ''}`}
+              onClick={() => setPrefs((p) => ({ ...p, experienceMode: 'pro' }))}
+              title="Pro view with full Level-2 order book & depth charts"
+            >
+              ⚡ Pro Quant
+            </button>
+          </div>
+
           <span className={`feed-status ${running ? 'live' : 'paused'}`}>
             <span className="dot" />
             {running ? 'LIVE FEED' : 'PAUSED'}
@@ -287,7 +340,29 @@ export default function App() {
         </div>
       </header>
 
+      {/* Marquee Ticker */}
       {prefs.showTicker && <Ticker quotes={quotes} />}
+
+      {/* Hero Onboarding Walkthrough Banner */}
+      <OnboardingBanner
+        onSelectStep={(step) => {
+          if (step === 'asset') setSelected('ETH')
+          else if (step === 'shock') injectScenario('FLASH_CRASH', 15)
+          else if (step === 'trade') {
+            const el = document.querySelector('.order-entry')
+            el?.scrollIntoView({ behavior: 'smooth' })
+          }
+        }}
+      />
+
+      {/* CollectUI Hero KPI Metrics Cards */}
+      <KPICards
+        quotes={quotes}
+        tradingState={tradingState}
+        activeScenario={activeScenario}
+        speed={speed}
+        onSelectSymbol={setSelected}
+      />
 
       <main className={layoutClass}>
         {prefs.showLeft && (
@@ -415,20 +490,23 @@ export default function App() {
               />
             </div>
 
-            <div className="panel orderbook-panel">
-              <div className="panel-title">Order Book · {selected}</div>
-              <OrderBook
-                quote={active}
-                onSelectPrice={(side, price, size) => setSelectedOBPrice({ side, price, size })}
-              />
-            </div>
+            {/* In Pro mode: render full Level-2 orderbook ladder & depth chart */}
+            {prefs.experienceMode === 'pro' && (
+              <div className="panel orderbook-panel">
+                <div className="panel-title">Order Book · {selected}</div>
+                <OrderBook
+                  quote={active}
+                  onSelectPrice={(side, price, size) => setSelectedOBPrice({ side, price, size })}
+                />
+              </div>
+            )}
           </aside>
         )}
       </main>
 
       <footer className="footer">
         <span>
-          Simulated market data via geometric Brownian motion — not real prices.
+          Simulated market data via geometric Brownian motion — not real prices. Risk-free educational sandbox.
         </span>
         <a href="https://github.com/maddoxk/frontend-trading-dashboard" target="_blank" rel="noreferrer">
           source on GitHub
@@ -437,6 +515,16 @@ export default function App() {
 
       {/* Floating in-app notifications */}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+
+      {/* Command Palette Modal (Cmd+K / Ctrl+K) */}
+      <CommandPalette
+        isOpen={isCmdOpen}
+        onClose={() => setIsCmdOpen(false)}
+        onSelectSymbol={setSelected}
+        onInjectScenario={injectScenario}
+        onSetLayout={(layout) => setPrefs((p) => ({ ...p, layoutMode: layout }))}
+        onResetAccount={reset}
+      />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useMemo, useRef, useState, useEffect } from 'react'
 import { buildOrderBook, calculateSpreadBps } from '../lib/orderbook'
 import { formatPrice, formatQty } from '../lib/format'
 import { DepthChart } from './DepthChart'
+import { Tooltip } from './Tooltip'
 import type { Quote } from '../lib/types'
 
 interface OrderBookProps {
@@ -107,6 +108,10 @@ export function OrderBook({ quote, onSelectPrice }: OrderBookProps) {
             <span className="ob-mid">{formatPrice(book.midPrice)}</span>
             <span className="ob-spread-label">
               spread {formatPrice(book.spread)} ({spreadBps} bps)
+              <Tooltip
+                title="Spread in Basis Points (bps)"
+                content="Difference between lowest ask and highest bid. 1 basis point (bps) = 0.01% of asset mid price."
+              />
             </span>
           </div>
 
